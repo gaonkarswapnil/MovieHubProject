@@ -68,7 +68,19 @@ class MovieActivity : AppCompatActivity(), GenreScrollerAdapter.OnItemClickListe
         enableEdgeToEdge()
         binding = ActivityMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
 
+
+
+    override fun onStart() {
+        super.onStart()
+        internetReceiver = InternetReciever()
+        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        registerReceiver(internetReceiver, filter)
+    }
+
+    override fun onResume() {
+        super.onResume()
         trendingViewModel.treadingMovie().observe(this, Observer { response ->
             if(response!=null){
                 Log.d("Trending Movie Data", "${response.toString()}")
@@ -168,6 +180,12 @@ class MovieActivity : AppCompatActivity(), GenreScrollerAdapter.OnItemClickListe
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(internetReceiver)
+    }
+
+
     override fun onItemClick(id: Int) {
         discoverViewModel.discoverMovie(id.toString()).observe(this, Observer {response ->
             if(response!=null){
@@ -192,17 +210,5 @@ class MovieActivity : AppCompatActivity(), GenreScrollerAdapter.OnItemClickListe
             it.putExtra("movieID", id)
             startActivity(it)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        internetReceiver = InternetReciever()
-        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        registerReceiver(internetReceiver, filter)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(internetReceiver)
     }
 }
