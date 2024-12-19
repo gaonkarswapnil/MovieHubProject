@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@drawable/bg_splash_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.LoginActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glBegin40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="40px" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glEnd40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="40px" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glBegin100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="100px" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glEnd100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="100px" />
+
+
+    <TextView
+        android:id="@+id/tvLoginScreenTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="135px"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/glEnd100"
+        app:layout_constraintStart_toStartOf="@+id/glBegin100"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/etLoginScreenUserName"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="148px"
+        android:backgroundTint="#FFFFFF"
+        android:drawableStart="@drawable/ic_profile"
+        android:drawablePadding="15dp"
+        android:hint="@string/username"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/glEnd100"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/glBegin100"
+        app:layout_constraintTop_toBottomOf="@+id/tvLoginScreenTitle" />
+
+
+    <EditText
+        android:id="@+id/etLoginScreenPassword"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="50px"
+        android:backgroundTint="#FFFFFF"
+        android:drawableStart="@drawable/ic_password"
+        android:drawablePadding="15dp"
+        android:hint="@string/password"
+        android:textStyle="bold"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:textColor="@color/white"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/glEnd100"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/glBegin100"
+        app:layout_constraintTop_toBottomOf="@+id/etLoginScreenUserName" />
+
+
+    <Button
+        android:id="@+id/btnLoginScreenButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="100px"
+        android:backgroundTint="@color/white"
+        android:text="@string/login"
+        android:textColor="@color/black"
+        android:textSize="78px"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/glEnd100"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/glBegin100"
+        app:layout_constraintTop_toBottomOf="@+id/etLoginScreenPassword" />
+
+
+<!--    <Button-->
+<!--        android:id="@+id/btnRegisterScreenButton"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginTop="100px"-->
+<!--        android:backgroundTint="@color/white"-->
+<!--        android:text="Register"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="78px"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/glEnd100"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/glBegin100"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnLoginScreenButton" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>

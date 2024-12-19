@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Movie Hub</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+
+    <string name="trending">Trending</string>
+    <string name="popular">Popular</string>
+    <string name="upcoming_movie">Upcoming Movies</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="now_playing">Now Playing</string>
+
+    <string name="discover">Discover</string>
+
+    <string name="watchlater">Watch Later</string>
+    <string name="description">Description</string>
+    <string name="notify">Notify</string>
+
+</resources>

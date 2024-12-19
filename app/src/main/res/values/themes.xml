@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Movie" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.Movie" parent="Base.Theme.Movie" />
+
+    <!-- Splash Screen Theme -->
+    <style name="Theme.MovieDB.Splash" parent="Theme.SplashScreen">
+        <!-- Background color of the splash screen -->
+        <item name="windowSplashScreenBackground">@color/purple</item>
+
+        <!-- App logo or icon displayed in the splash screen -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+
+        <!-- Post-splash theme to apply after splash screen -->
+        <item name="postSplashScreenTheme">@style/Theme.Movie</item>
+    </style>
+</resources>
