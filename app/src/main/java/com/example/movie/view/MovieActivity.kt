@@ -25,6 +25,8 @@ import com.example.movie.repository.apiimplementation.DiscoverRepositoryImplemen
 import com.example.movie.repository.apiimplementation.GenreRepositoryImplementation
 import com.example.movie.repository.apiimplementation.MovieListRepositoryImplementation
 import com.example.movie.repository.apiimplementation.TrendingRepositoryImplementation
+import com.example.movie.services.database.MovieDatabase
+import com.example.movie.services.database.dao.TrendingMovieDao
 import com.example.movie.utils.broadcastreciever.InternetReciever
 import com.example.movie.utils.sharedpreference.SessionManager
 import com.example.movie.viewmodel.AuthenticationViewModel
@@ -44,19 +46,24 @@ class MovieActivity : AppCompatActivity(), GenreScrollerAdapter.OnItemClickListe
     private lateinit var internetReceiver: InternetReciever
 
     private val trendingViewModel: TrendingViewModel by viewModels {
-        TrendingViewModelFactory(application, TrendingRepositoryImplementation())
+        TrendingViewModelFactory(application, TrendingRepositoryImplementation(trendingMovieDao = MovieDatabase.getInstance(this).trendingMovies()))
     }
 
     private val genreViewModel: GenreViewModel by viewModels {
-        GenreViewModelFactory(application, GenreRepositoryImplementation())
+        GenreViewModelFactory(application, GenreRepositoryImplementation(genreDao =MovieDatabase.getInstance(this).genre()))
     }
 
     private val discoverViewModel: DiscoverViewModel by viewModels {
-        DiscoverViewModelFactory(application, DiscoverRepositoryImplementation())
+        DiscoverViewModelFactory(application, DiscoverRepositoryImplementation(discoverMovieDao = MovieDatabase.getInstance(this).discoverMovie()))
     }
 
     private val movieListViewModel: MovieListViewModel by viewModels {
-        MovieListViewModelFactory(application, MovieListRepositoryImplementation())
+        MovieListViewModelFactory(application, MovieListRepositoryImplementation(
+            nowPlayingMovieDao = MovieDatabase.getInstance(this).nowPlayingMovies(),
+            popularMoviesDao = MovieDatabase.getInstance(this).popularMovies(),
+            topRatedMoviesDao =MovieDatabase.getInstance(this).topRatedMovies(),
+            upcomingMoviesDao =MovieDatabase.getInstance(this).upcomingMovies()
+        ))
     }
 
     private val authenticationViewModel: AuthenticationViewModel by viewModels {
@@ -83,7 +90,7 @@ class MovieActivity : AppCompatActivity(), GenreScrollerAdapter.OnItemClickListe
         super.onResume()
         trendingViewModel.treadingMovie().observe(this, Observer { response ->
             if(response!=null){
-                Log.d("Trending Movie Data", "${response.toString()}")
+                Log.d("Trending Movie Data", response.toString())
 //                for(i in response.results){
 //                    result.add(i)
 //                }
@@ -189,7 +196,7 @@ class MovieActivity : AppCompatActivity(), GenreScrollerAdapter.OnItemClickListe
     override fun onItemClick(id: Int) {
         discoverViewModel.discoverMovie(id.toString()).observe(this, Observer {response ->
             if(response!=null){
-                Log.d("Discover Movie Data", "${response.toString()}")
+//                Log.d("Discover Movie Data", "${response.toString()}")
                 binding.rvDiscover.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                 binding.rvDiscover.adapter = DiscoverScrollerAdapter(response.results, this)
             }

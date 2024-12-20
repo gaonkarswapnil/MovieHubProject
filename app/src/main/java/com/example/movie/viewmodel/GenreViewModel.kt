@@ -30,6 +30,14 @@ class GenreViewModel(
             },{error ->
                 Log.d("Genre Movie", "Error")
 //                Toast.makeText(application, "ERROR", Toast.LENGTH_SHORT).show()
+                genreRepository.getMovieGenre()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({genre ->
+                        movieGenresResponse.value = genre
+                    },{
+                        it.printStackTrace()
+                    }).addTo(compositeDisposable)
             }).addTo(compositeDisposable)
 
         return movieGenresResponse

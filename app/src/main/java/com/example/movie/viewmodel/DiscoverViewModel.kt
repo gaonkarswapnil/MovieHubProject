@@ -28,8 +28,16 @@ class DiscoverViewModel(
             .subscribe({movie ->
                 discoverMovieResponse.value = movie
             },{error ->
-                Log.d("Discover Movie", "Error")
+//                Log.d("Discover Movie", "Error")
 //                Toast.makeText(application, "ERROR", Toast.LENGTH_SHORT).show()
+                discoverRepository.getAllDiscoverMovie()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({discover ->
+                        discoverMovieResponse.value = discover
+                    },{
+                        it.printStackTrace()
+                    }).addTo(compositeDisposable)
             }).addTo(compositeDisposable)
 
         return discoverMovieResponse

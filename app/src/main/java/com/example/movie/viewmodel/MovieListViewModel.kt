@@ -33,6 +33,14 @@ class MovieListViewModel(
             }, {error ->
                 Log.d("PopularMovieList", "Error")
 //                Toast.makeText(application, "ERROR", Toast.LENGTH_SHORT).show()
+                movieListRepository.getAllPopulatMovies()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({popular ->
+                        popularResponse.value = popular
+                    },{
+                        it.printStackTrace()
+                    }).addTo(compositeDisposable)
             }).addTo(compositeDisposable)
 
         return popularResponse
@@ -49,6 +57,14 @@ class MovieListViewModel(
             },{error ->
                 Log.d("NowPlayingMovieList", "Error")
 //                Toast.makeText(application, "ERROR", Toast.LENGTH_SHORT).show()
+                movieListRepository.getAllNowPlayingFromDB()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({nowPlaying ->
+                        nowPlayingResponse.value = nowPlaying
+                    },{
+                        it.printStackTrace()
+                    }).addTo(compositeDisposable)
             }).addTo(compositeDisposable)
 
         return nowPlayingResponse
@@ -65,6 +81,14 @@ class MovieListViewModel(
             },{error ->
                 Log.d("TopRatedMovieList", "Error")
 //                Toast.makeText(application, "ERROR", Toast.LENGTH_SHORT).show()
+                movieListRepository.getAllTopRatedMovies()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({topRated ->
+                        topRatedResponse.value = topRated
+                    },{
+                        it.printStackTrace()
+                    }).addTo(compositeDisposable)
             }).addTo(compositeDisposable)
 
         return topRatedResponse
@@ -81,6 +105,14 @@ class MovieListViewModel(
             },{error ->
                 Log.d("UpcomingMovieList", "Error")
 //                Toast.makeText(application, "ERROR", Toast.LENGTH_SHORT).show()
+                movieListRepository.getAllUpcomingMovies()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({upcoming ->
+                        upcomingMovieResponse.value = upcoming
+                    },{
+                        it.printStackTrace()
+                    }).addTo(compositeDisposable)
             }).addTo(compositeDisposable)
 
         return upcomingMovieResponse

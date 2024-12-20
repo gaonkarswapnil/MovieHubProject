@@ -5,4 +5,6 @@ import io.reactivex.rxjava3.core.Observable
 
 interface TrendingRepository {
     fun treadingMovie(): Observable<TrendingMovieResponse>
+
+    fun getAllTrendingMovie(): Observable<TrendingMovieResponse>
 }

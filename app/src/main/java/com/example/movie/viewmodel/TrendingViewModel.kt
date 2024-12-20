@@ -30,6 +30,14 @@ class TrendingViewModel(
             },{error ->
                 Log.d("TrendingMovieList", "Error")
 //                Toast.makeText(application, "ERROR", Toast.LENGTH_SHORT).show()
+                trendingRepository.getAllTrendingMovie()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({nowPlaying ->
+                        trendingMovieResponse.value = nowPlaying
+                    },{
+                        it.printStackTrace()
+                    }).addTo(compositeDisposable)
             }).addTo(compositeDisposable)
 
         return trendingMovieResponse
