@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnLoginScreenButton.setOnClickListener {
             authenticationViewModel.getRequestToken().observe(this, Observer { token ->
-                grantPermission(token.requestToken)
+                grantPermission(token.request_token)
             })
         }
     }
@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
             )
 
             authenticationViewModel.createSessionViaLogin(request).observe(this, Observer { reqRes ->
-                newRequestToken = reqRes.requestToken
+                newRequestToken = reqRes.request_token
                 authenticationViewModel.createSessionResponse(CreateSessionRequest(requestToken)).observe(this, Observer{
                     val sessionManager = SessionManager(this)
                     sessionManager.saveSessionId(it.session_id)
