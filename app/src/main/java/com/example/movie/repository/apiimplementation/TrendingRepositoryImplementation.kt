@@ -16,8 +16,8 @@ class TrendingRepositoryImplementation(
                 val trendingMovies = TrendingMovieResponse(
                     page = response.page,
                     results = response.results,
-                    total_pages = response.total_pages,
-                    total_results = response.total_results
+                    totalPages = response.totalPages,
+                    totalResults = response.totalResults
                 )
 
                 trendingMovieDao.deleteAllTrendingMovies()

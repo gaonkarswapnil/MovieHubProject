@@ -11,7 +11,7 @@ import com.example.movie.interfaces.AllMovieDetails
 import com.example.movie.model.Result
 
 class DiscoverScrollerAdapter(
-    val result: List<Result>,
+    private val result: List<Result>,
     private val listener: AllMovieDetails
 ): RecyclerView.Adapter<DiscoverScrollerAdapter.DiscoverCatelogViewHolder>() {
     class DiscoverCatelogViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

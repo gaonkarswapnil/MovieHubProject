@@ -12,7 +12,7 @@ import com.example.movie.interfaces.AllMovieDetails
 import com.example.movie.model.Result
 
 class TrendingScrollerAdaper(
-    val result: List<Result>,
+    private val result: List<Result>,
     private val listener: AllMovieDetails
 ): RecyclerView.Adapter<TrendingScrollerAdaper.TrendingCatelogViewHolder>() {
     class TrendingCatelogViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

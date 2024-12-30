@@ -11,7 +11,7 @@ import com.example.movie.interfaces.UpcomingMovie
 import com.example.movie.model.Result
 
 class UpcomingScrollerAdapter(
-    val result: List<Result>,
+    private val result: List<Result>,
     private val listener: UpcomingMovie
 ): RecyclerView.Adapter<UpcomingScrollerAdapter.UpcomingMovieCatelogViewHolder>() {
     class UpcomingMovieCatelogViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

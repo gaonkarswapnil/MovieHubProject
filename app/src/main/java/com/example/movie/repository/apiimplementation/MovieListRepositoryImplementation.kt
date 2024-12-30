@@ -1,7 +1,5 @@
 package com.example.movie.repository.apiimplementation
 
-import androidx.room.PrimaryKey
-import androidx.room.util.recursiveFetchLongSparseArray
 import com.example.movie.model.Dates
 import com.example.movie.model.NowPlayingResponse
 import com.example.movie.model.PopularResponse
@@ -14,7 +12,6 @@ import com.example.movie.services.database.dao.TopRatedMovieDao
 import com.example.movie.services.database.dao.UpcomingMoviesDao
 import com.example.movie.services.network.RetrofitHelper
 import io.reactivex.rxjava3.core.Observable
-import java.util.Date
 
 class MovieListRepositoryImplementation(
     private val nowPlayingMovieDao: NowPlayingMovieDao,
@@ -28,8 +25,8 @@ class MovieListRepositoryImplementation(
                 val popular = PopularResponse(
                     page = response.page,
                     results = response.results,
-                    total_pages = response.total_pages,
-                    total_results = response.total_results
+                    totalPages = response.totalPages,
+                    totalResults = response.totalResults
                 )
 
                 popularMoviesDao.deleteAllPopularMovies()
@@ -49,8 +46,8 @@ class MovieListRepositoryImplementation(
                     dates = Dates(maximum = response.dates.maximum, minimum = response.dates.minimum),
                     page = response.page,
                     results = response.results,
-                    total_pages = response.total_pages,
-                    total_results = response.total_results
+                    totalPages = response.totalPages,
+                    totalResults = response.totalResults
                 )
 
                 nowPlayingMovieDao.deleteAllNowPlayingMovies()
@@ -69,8 +66,8 @@ class MovieListRepositoryImplementation(
                 val topRatedMovie = TopRatedResponse(
                     page = response.page,
                     results = response.results,
-                    total_pages = response.total_pages,
-                    total_results = response.total_results
+                    totalPages = response.totalPages,
+                    totalResults = response.totalResults
                 )
 
                 topRatedMoviesDao.deleteAllTopRatedMovies()
@@ -90,8 +87,8 @@ class MovieListRepositoryImplementation(
                     dates = response.dates,
                     page = response.page,
                     results = response.results,
-                    total_pages = response.total_pages,
-                    total_results = response.total_results
+                    totalPages = response.totalPages,
+                    totalResults = response.totalResults
                 )
 
                 upcomingMoviesDao.deleteAllUpcomingMovies()

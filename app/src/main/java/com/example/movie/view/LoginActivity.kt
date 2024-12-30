@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnLoginScreenButton.setOnClickListener {
             authenticationViewModel.getRequestToken().observe(this, Observer { token ->
-                grantPermission(token.request_token)
+                grantPermission(token.requestToken)
             })
         }
     }
@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
             )
 
             authenticationViewModel.createSessionViaLogin(request).observe(this, Observer { reqRes ->
-                newRequestToken = reqRes.request_token
+                newRequestToken = reqRes.requestToken
                 authenticationViewModel.createSessionResponse(CreateSessionRequest(requestToken)).observe(this, Observer{
                     val sessionManager = SessionManager(this)
                     sessionManager.saveSessionId(it.session_id)

@@ -1,6 +1,7 @@
 package com.example.movie.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,7 @@ class UpcomingMoviesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         binding = ActivityUpcomingMoviesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -28,16 +29,18 @@ class UpcomingMoviesActivity : AppCompatActivity() {
         val movieId = intent.getIntExtra("movieID", 0)
 
         moviesViewModel.movieDetail(movieId).observe(this, Observer { response ->
-            if(response!=null){
+            if(response.error?.status_code == 401){
+                Log.d("Movie Detail data", "BroadCastReviever")
+            }else{
                 Glide.with(binding.ivMovieImage.context)
-                    .load("https://image.tmdb.org/t/p/w500/${response.backdrop_path}")
+                    .load("https://image.tmdb.org/t/p/w500/${response.data?.backdrop_path}")
                     .into(binding.ivMovieImage)
 
-                binding.tvMovieTitle.text = response.title
-                binding.tvMovieDescription.text = response.overview
-                binding.tvReleasedDate.text = "Release Date -> ${response.release_date}"
+                binding.tvMovieTitle.text = response.data?.title
+                binding.tvMovieDescription.text = response.data?.overview
+                binding.tvReleasedDate.text = "Release Date -> ${response.data?.release_date}"
                 var data = mutableListOf<String>()
-                for (i in response.genres){
+                for (i in response.data?.genres!!){
                     data.add(i.name)
                 }
                 binding.tvGenre.text = "Category -> ${data.joinToString(", ")}"

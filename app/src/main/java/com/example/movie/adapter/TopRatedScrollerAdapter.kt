@@ -11,7 +11,7 @@ import com.example.movie.interfaces.AllMovieDetails
 import com.example.movie.model.Result
 
 class TopRatedScrollerAdapter(
-    val result: List<Result>,
+    private val result: List<Result>,
     private val listener: AllMovieDetails
 ): RecyclerView.Adapter<TopRatedScrollerAdapter.TopRatedCatelogViewHolder>() {
     class TopRatedCatelogViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

@@ -17,8 +17,8 @@ import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class AuthenticationViewModel(
-    val application: Application,
-    val authenticationRepository: AuthenticationRepositoryImplementation
+    private val application: Application,
+    private val authenticationRepository: AuthenticationRepositoryImplementation
 ):ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()

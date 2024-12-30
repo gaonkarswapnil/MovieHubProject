@@ -20,6 +20,7 @@ import com.example.movie.adapter.UpcomingScrollerAdapter
 import com.example.movie.databinding.ActivityMovieBinding
 import com.example.movie.interfaces.AllMovieDetails
 import com.example.movie.interfaces.UpcomingMovie
+import com.example.movie.model.Genre
 import com.example.movie.repository.apiimplementation.AuthenticationRepositoryImplementation
 import com.example.movie.repository.apiimplementation.DiscoverRepositoryImplementation
 import com.example.movie.repository.apiimplementation.GenreRepositoryImplementation
@@ -27,6 +28,7 @@ import com.example.movie.repository.apiimplementation.MovieListRepositoryImpleme
 import com.example.movie.repository.apiimplementation.TrendingRepositoryImplementation
 import com.example.movie.services.database.MovieDatabase
 import com.example.movie.services.database.dao.TrendingMovieDao
+import com.example.movie.utils.NetworkData
 import com.example.movie.utils.broadcastreciever.InternetReciever
 import com.example.movie.utils.sharedpreference.SessionManager
 import com.example.movie.viewmodel.AuthenticationViewModel
@@ -72,7 +74,7 @@ class MovieActivity : AppCompatActivity(), GenreScrollerAdapter.OnItemClickListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         binding = ActivityMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
@@ -89,16 +91,25 @@ class MovieActivity : AppCompatActivity(), GenreScrollerAdapter.OnItemClickListe
     override fun onResume() {
         super.onResume()
         trendingViewModel.treadingMovie().observe(this, Observer { response ->
-            if(response!=null){
-                Log.d("Trending Movie Data", response.toString())
-//                for(i in response.results){
-//                    result.add(i)
-//                }
+//            if(response!=null){
+//                Log.d("Trending Movie Data", response.toString())
+////                for(i in response.results){
+////                    result.add(i)
+////                }
+//
+////                response.results
+//                binding.vpTrending.adapter = TrendingScrollerAdaper(response.results, this)
+//
+//            }
 
-//                response.results
-                binding.vpTrending.adapter = TrendingScrollerAdaper(response.results, this)
-
+            when(response){
+                is NetworkData.Error -> Log.d("Trending Movie Data", "Broadcast Reciever")
+                is NetworkData.Success -> {
+                    binding.vpTrending.adapter =
+                        response.data?.let { TrendingScrollerAdaper(it.results, this) }
+                }
             }
+
         })
 
         binding.vpTrending.setPageTransformer(){ page, position ->
@@ -124,45 +135,67 @@ class MovieActivity : AppCompatActivity(), GenreScrollerAdapter.OnItemClickListe
 
 
         genreViewModel.movieGenre().observe(this, Observer { response ->
-            if(response!=null){
-                Log.d("Genre Movie Data", "${response}")
-                binding.rvGenreName.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                binding.rvGenreName.adapter = GenreScrollerAdapter(response.genres, this)
+//            if(response!=null){
+//                Log.d("Genre Movie Data", "${response}")
+//                binding.rvGenreName.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//                binding.rvGenreName.adapter = GenreScrollerAdapter(response.genres, this)
+//            }
+
+            when(response){
+                is NetworkData.Error -> Log.d("Genre Movie Data", "Broadcast Reciever")
+                is NetworkData.Success -> {
+                    binding.rvGenreName.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                    binding.rvGenreName.adapter =
+                        response.data?.let { GenreScrollerAdapter(it.genres, this) }
+                }
             }
         })
 
 
         movieListViewModel.nowPlaying().observe(this, Observer {response ->
-            if(response!=null){
-                Log.d("Now Playing Movie Data", "${response.toString()}")
-                binding.rvNowPlaying.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                binding.rvNowPlaying.adapter = NowPlayingScrollerAdapter(response.results, this)
+
+            when(response){
+                is NetworkData.Error -> Log.d("Now Playing Movie Data", "Broadcast Reciever")
+                is NetworkData.Success -> {
+                    binding.rvNowPlaying.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                    binding.rvNowPlaying.adapter =
+                        response.data?.let { NowPlayingScrollerAdapter(it.results, this) }
+                }
             }
         })
 
 
         movieListViewModel.popularMovie().observe(this, Observer { response ->
-            if(response!=null){
-                Log.d("Popular Movie Data", "${response.toString()}")
-                binding.rvPopular.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                binding.rvPopular.adapter = PopularScrollerAdapter(response.results, this)
 
+            when(response){
+                is NetworkData.Error -> Log.d("Popular Movie Data", "Broadcast Reciever")
+                is NetworkData.Success -> {
+                    binding.rvPopular.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                    binding.rvPopular.adapter =
+                        response.data?.let { PopularScrollerAdapter(it.results, this) }
+                }
             }
         })
 
         movieListViewModel.topRatedMovies().observe(this, Observer { response ->
-            if(response!=null){
-                Log.d("Top Rated Movie Data", "${response.toString()}")
-                binding.rvTopRated.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                binding.rvTopRated.adapter = TopRatedScrollerAdapter(response.results, this)
+            when(response){
+                is NetworkData.Error -> Log.d("Top Rated Movie Data", "Broadcast Reciever")
+                is NetworkData.Success -> {
+                    binding.rvTopRated.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                    binding.rvTopRated.adapter =
+                        response.data?.let { TopRatedScrollerAdapter(it.results, this) }
+                }
             }
         })
 
         movieListViewModel.upcomingMovies().observe(this, Observer { response ->
-            if(response!=null){
-                Log.d("Upcoming Movie Data", "${response.toString()}")
-                binding.rvUpcomingMovies.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                binding.rvUpcomingMovies.adapter = UpcomingScrollerAdapter(response.results, this)
+            when(response){
+                is NetworkData.Error -> Log.d("Upcoming Movie Data", "Broadcast Reciever")
+                is NetworkData.Success -> {
+                    binding.rvUpcomingMovies.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                    binding.rvUpcomingMovies.adapter =
+                        response.data?.let { UpcomingScrollerAdapter(it.results, this) }
+                }
             }
         })
 
@@ -193,13 +226,33 @@ class MovieActivity : AppCompatActivity(), GenreScrollerAdapter.OnItemClickListe
     }
 
 
-    override fun onItemClick(id: Int) {
-        discoverViewModel.discoverMovie(id.toString()).observe(this, Observer {response ->
-            if(response!=null){
-//                Log.d("Discover Movie Data", "${response.toString()}")
-                binding.rvDiscover.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                binding.rvDiscover.adapter = DiscoverScrollerAdapter(response.results, this)
+    override fun onItemClick(genre: Genre) {
+        discoverViewModel.discoverMovie(genre.id.toString()).observe(this, Observer {response ->
+//            if(response!=null){
+////                Log.d("Discover Movie Data", "${response.toString()}")
+//                binding.rvDiscover.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//                binding.rvDiscover.adapter =
+//                    response.data?.let { DiscoverScrollerAdapter(it.results, this) }
+//            }
+
+            when(response){
+                is NetworkData.Error -> {
+                    Log.d("Discover Movie Data", "Broadcast Reciever")
+                }
+                is NetworkData.Success -> {
+                    binding.rvDiscover.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                    binding.rvDiscover.adapter =
+                        response.data?.let { DiscoverScrollerAdapter(it.results, this) }
+                }
             }
+
+//            if(response.error?.status_code == 401){
+//                Log.d("Discover Movie Data", "Broadcast Reciever")
+//            }else{
+//                binding.rvDiscover.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//                binding.rvDiscover.adapter =
+//                    response.data?.let { DiscoverScrollerAdapter(it.results, this) }
+//            }
         })
     }
 

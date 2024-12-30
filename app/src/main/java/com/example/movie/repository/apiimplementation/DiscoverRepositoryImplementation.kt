@@ -15,8 +15,8 @@ class DiscoverRepositoryImplementation(
                 val discover = DiscoverMovieResponse(
                     page = response.page,
                     results = response.results,
-                    total_pages = response.total_pages,
-                    total_results = response.total_results
+                    totalPages = response.totalPages,
+                    totalResults = response.totalResults
                 )
 
                 discoverMovieDao.deleteAllDiscoverMovie()

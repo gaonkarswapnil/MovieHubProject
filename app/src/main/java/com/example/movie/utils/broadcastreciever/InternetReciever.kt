@@ -12,6 +12,8 @@ class InternetReciever: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if(!isInternet(context)){
             showNoInternetToast(context)
+        }else{
+            Toast.makeText(context, "You are online", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -23,6 +25,6 @@ class InternetReciever: BroadcastReceiver() {
     }
 
     private fun showNoInternetToast(context: Context?){
-        Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "No Internet Connection", Toast.LENGTH_LONG).show()
     }
 }

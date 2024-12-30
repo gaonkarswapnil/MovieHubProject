@@ -11,7 +11,7 @@ import com.example.movie.interfaces.AllMovieDetails
 import com.example.movie.model.Result
 
 class PopularScrollerAdapter(
-    val result: List<Result>,
+    private val result: List<Result>,
     private val listener: AllMovieDetails
 ): RecyclerView.Adapter<PopularScrollerAdapter.PopularCatelogViewHolder>() {
     class PopularCatelogViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

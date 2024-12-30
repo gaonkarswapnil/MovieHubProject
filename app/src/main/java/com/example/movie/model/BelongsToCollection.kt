@@ -1,8 +1,8 @@
 package com.example.movie.model
 
 data class BelongsToCollection(
-    val backdrop_path: String,
+    val backdropPath: String,
     val id: Int,
     val name: String,
-    val poster_path: String
+    val posterPath: String
 )
